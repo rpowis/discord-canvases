@@ -1,0 +1,46 @@
+{
+    "name": "discord-canvases",
+    "version": "1.0.0",
+    "description": "A simplified collaborative document editor for Discord communities",
+    "main": "src/bot.js",
+    "scripts": {
+        "start": "node src/bot.js",
+        "dev": "nodemon src/bot.js",
+        "test": "jest",
+        "test:watch": "jest --watch",
+        "test:coverage": "jest --coverage"
+    },
+    "keywords": [
+        "discord",
+        "bot",
+        "collaborative",
+        "documents",
+        "canvas"
+    ],
+    "author": "",
+    "license": "MIT",
+    "dependencies": {
+        "discord.js": "^14.14.1",
+        "sqlite3": "^5.1.6",
+        "dotenv": "^16.3.1"
+    },
+    "devDependencies": {
+        "jest": "^29.7.0",
+        "nodemon": "^3.0.2",
+        "@types/jest": "^29.5.8"
+    },
+    "engines": {
+        "node": ">=20.0.0"
+    },
+    "jest": {
+        "testEnvironment": "node",
+        "collectCoverageFrom": [
+            "src/**/*.js",
+            "!src/**/*.test.js"
+        ],
+        "testMatch": [
+            "**/__tests__/**/*.js",
+            "**/?(*.)+(spec|test).js"
+        ]
+    }
+}

@@ -8,12 +8,10 @@ Discord Canvases allows Discord server members to create, share, and collaborati
 
 ## Key Features (Planned)
 
-- 📝 Create documents via Discord slash commands
+- 📝 Create documents via Discord interface
 - 🔗 Share documents directly to Discord channels  
 - ✏️ Turn-based collaborative editing (one editor at a time)
 - 📋 Basic rich text formatting
-- 🕒 Edit history and version tracking
-- 🔐 Inherits Discord channel permissions
 
 ## Project Status
 
