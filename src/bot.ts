@@ -1,18 +1,18 @@
-const { Client, GatewayIntentBits, Events } = require('discord.js');
-const { getConfig } = require('../config/config');
+import { Client, Events, GatewayIntentBits, Interaction } from 'discord.js';
+import { Config, getConfig } from '../config/config';
 
 /**
  * Discord Canvases Bot
  * Main entry point for the Discord bot
  */
 
-let config;
-let client;
+let config: Config;
+let client: Client;
 
 /**
  * Initialize the Discord client with required intents
  */
-function createClient() {
+function createClient(): Client {
   return new Client({
     intents: [
       GatewayIntentBits.Guilds,
@@ -24,7 +24,7 @@ function createClient() {
 /**
  * Set up basic event handlers
  */
-function setupEventHandlers(client) {
+function setupEventHandlers(client: Client): void {
   // Bot ready event
   client.once(Events.ClientReady, (readyClient) => {
     console.log(`✅ Discord Canvases Bot is ready!`);
@@ -34,10 +34,10 @@ function setupEventHandlers(client) {
   });
 
   // Interaction handling (buttons, modals, etc.)
-  client.on(Events.InteractionCreate, async (interaction) => {
+  client.on(Events.InteractionCreate, async (interaction: Interaction) => {
     try {
       // TODO: Implement interaction handling in future tasks
-      console.log(`📥 Received interaction: ${interaction.type} from ${interaction.user.tag}`);
+      console.log(`📥 Received interaction: ${interaction.type} from ${interaction.user?.tag}`);
       
       // Placeholder response for now
       if (interaction.isRepliable() && !interaction.replied) {
@@ -64,18 +64,18 @@ function setupEventHandlers(client) {
   });
 
   // Error handling
-  client.on(Events.Error, (error) => {
+  client.on(Events.Error, (error: Error) => {
     console.error('❌ Discord client error:', error);
   });
 
   // Warning handling
-  client.on(Events.Warn, (warning) => {
+  client.on(Events.Warn, (warning: string) => {
     console.warn('⚠️ Discord client warning:', warning);
   });
 
   // Debug logging (only in development)
   if (config.app.isDevelopment) {
-    client.on(Events.Debug, (debug) => {
+    client.on(Events.Debug, (debug: string) => {
       if (config.app.logLevel === 'debug') {
         console.debug('🐛 Discord debug:', debug);
       }
@@ -86,12 +86,16 @@ function setupEventHandlers(client) {
 /**
  * Initialize and start the bot
  */
-async function startBot() {
+async function startBot(): Promise<void> {
   try {
     console.log('🚀 Starting Discord Canvases Bot...');
     
     // Load and validate configuration
-    config = getConfig();
+    const configResult = getConfig();
+    if (!configResult) {
+      throw new Error('Failed to load configuration');
+    }
+    config = configResult;
     console.log('✅ Configuration loaded successfully');
     
     // Create Discord client
@@ -107,11 +111,12 @@ async function startBot() {
     await client.login(config.discord.token);
     
   } catch (error) {
-    console.error('❌ Failed to start bot:', error.message);
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    console.error('❌ Failed to start bot:', errorMessage);
     
-    if (error.message.includes('TOKEN_INVALID')) {
+    if (errorMessage.includes('TOKEN_INVALID')) {
       console.error('💡 Please check your DISCORD_TOKEN in the .env file');
-    } else if (error.message.includes('Missing required environment variables')) {
+    } else if (errorMessage.includes('Missing required environment variables')) {
       console.error('💡 Please copy env.example to .env and fill in the required values');
     }
     
@@ -122,8 +127,8 @@ async function startBot() {
 /**
  * Graceful shutdown handling
  */
-function setupGracefulShutdown() {
-  const shutdown = async (signal) => {
+function setupGracefulShutdown(): void {
+  const shutdown = async (signal: string): Promise<void> => {
     console.log(`\n🛑 Received ${signal}, shutting down gracefully...`);
     
     if (client) {
@@ -151,10 +156,12 @@ if (require.main === module) {
   startBot();
 }
 
-module.exports = {
+export {
   createClient,
   setupEventHandlers,
-  startBot,
-  getClient: () => client,
-  getConfig: () => config,
-}; 
+  startBot
+};
+
+export function getClient(): Client | undefined {
+  return client;
+} 

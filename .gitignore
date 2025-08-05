@@ -70,7 +70,14 @@ jspm_packages/
 
 # Nuxt.js build / generate output
 .nuxt
-dist
+
+# TypeScript build output
+dist/
+build/
+*.tsbuildinfo
+
+# TypeScript declaration files (if not needed in repo)
+*.d.ts.map
 
 # Storybook build outputs
 .out

@@ -1,15 +1,48 @@
-require('dotenv').config();
+import 'dotenv/config';
 
 /**
- * Configuration module for Discord Canvases Bot
- * Loads and validates environment variables
+ * Configuration interfaces for Discord Canvases Bot
  */
+export interface DiscordConfig {
+  token: string;
+  clientId: string;
+}
 
-const config = {
+export interface DatabaseConfig {
+  path: string;
+}
+
+export interface CanvasConfig {
+  editTimeoutMinutes: number;
+  autoSaveIntervalSeconds: number;
+  maxContentLength: number;
+  contentPreviewLength: number;
+  titleMinLength: number;
+  titleMaxLength: number;
+}
+
+export interface AppConfig {
+  nodeEnv: string;
+  logLevel: string;
+  isDevelopment: boolean;
+  isProduction: boolean;
+}
+
+export interface Config {
+  discord: DiscordConfig;
+  database: DatabaseConfig;
+  canvas: CanvasConfig;
+  app: AppConfig;
+}
+
+/**
+ * Configuration object with environment variables
+ */
+const config: Config = {
   // Discord Configuration
   discord: {
-    token: process.env.DISCORD_TOKEN,
-    clientId: process.env.DISCORD_CLIENT_ID,
+    token: process.env.DISCORD_TOKEN || '',
+    clientId: process.env.DISCORD_CLIENT_ID || '',
   },
 
   // Database Configuration
@@ -19,10 +52,10 @@ const config = {
 
   // Canvas Configuration
   canvas: {
-    editTimeoutMinutes: parseInt(process.env.EDIT_TIMEOUT_MINUTES) || 10,
-    autoSaveIntervalSeconds: parseInt(process.env.AUTO_SAVE_INTERVAL_SECONDS) || 30,
-    maxContentLength: parseInt(process.env.MAX_CONTENT_LENGTH) || 10000,
-    contentPreviewLength: parseInt(process.env.CONTENT_PREVIEW_LENGTH) || 200,
+    editTimeoutMinutes: parseInt(process.env.EDIT_TIMEOUT_MINUTES || '10'),
+    autoSaveIntervalSeconds: parseInt(process.env.AUTO_SAVE_INTERVAL_SECONDS || '30'),
+    maxContentLength: parseInt(process.env.MAX_CONTENT_LENGTH || '10000'),
+    contentPreviewLength: parseInt(process.env.CONTENT_PREVIEW_LENGTH || '200'),
     
     // Title validation
     titleMinLength: 3,
@@ -42,8 +75,8 @@ const config = {
  * Validates required configuration values
  * @throws {Error} If required configuration is missing
  */
-function validateConfig() {
-  const required = [
+function validateConfig(): void {
+  const required: Array<{ key: string; value: string | undefined; name: string }> = [
     { key: 'discord.token', value: config.discord.token, name: 'DISCORD_TOKEN' },
     { key: 'discord.clientId', value: config.discord.clientId, name: 'DISCORD_CLIENT_ID' },
   ];
@@ -74,15 +107,14 @@ function validateConfig() {
 
 /**
  * Gets the full configuration object after validation
- * @returns {Object} The validated configuration
+ * @returns {Config} The validated configuration
  */
-function getConfig() {
+export function getConfig(): Config {
   validateConfig();
   return config;
 }
 
-module.exports = {
-  config,
-  validateConfig,
-  getConfig,
-}; 
+export {
+    config,
+    validateConfig
+};
