@@ -8,11 +8,11 @@ Based on the PRD analysis, here are the detailed tasks required to implement the
 - `src/bot.test.ts` - Unit tests for bot initialization and basic functionality (CREATED)
 - `src/handlers/interactionHandler.ts` - Central handler for Discord button/modal interactions
 - `src/handlers/interactionHandler.test.ts` - Unit tests for interaction handling
-- `src/models/Canvas.ts` - Canvas data model and CRUD operations
+- `src/models/Canvas.ts` - Canvas data model and CRUD operations (CREATED)
 - `src/models/Canvas.test.ts` - Unit tests for Canvas model
 - `src/models/EditSession.ts` - Edit session management and locking logic
 - `src/models/EditSession.test.ts` - Unit tests for edit session functionality
-- `src/storage/database.ts` - Database connection and initialization (SQLite)
+- `src/storage/database.ts` - Database connection and initialization (SQLite) (CREATED)
 - `src/storage/database.test.ts` - Unit tests for database operations
 - `src/commands/canvasCommands.ts` - Canvas creation and management commands
 - `src/commands/canvasCommands.test.ts` - Unit tests for canvas command logic
@@ -54,8 +54,8 @@ Based on the PRD analysis, here are the detailed tasks required to implement the
   - [x] 1.8 Update Jest configuration for TypeScript support
 
 - [ ] 2.0 Implement Canvas Data Storage and Management System
-  - [ ] 2.1 Design and implement Canvas data schema with TypeScript interfaces
-  - [ ] 2.2 Set up SQLite database connection with proper typing
+  - [x] 2.1 Design and implement Canvas data schema with TypeScript interfaces
+  - [x] 2.2 Set up SQLite database connection with proper typing
   - [ ] 2.3 Create Canvas model with CRUD operations and type safety
   - [ ] 2.4 Implement EditSession model with TypeScript interfaces
   - [ ] 2.5 Add database migration/initialization scripts with proper typing
