@@ -1,0 +1,64 @@
+---
+description: Agile PRD template optimizing for working software every iteration via vertical slices and iterative delivery
+globs:
+alwaysApply: false
+---
+# Rule: Generating a Product Requirements Document (PRD)
+
+## Goal
+
+Create a clear, detailed, actionable PRD in Markdown, based on an initial user prompt. The PRD should be suitable for a junior developer to implement, while enabling delivery of working software across iterations by keeping scope clear and minimal.
+
+## Process
+
+1.  **Receive Initial Prompt:** The user provides a brief description or request for a new feature or functionality.
+2.  **Ask Clarifying Questions:** Before writing the PRD, clarifying questions must be asked to gather sufficient detail. Focus on the problem, users, scope, acceptance criteria, data, and constraints. The goal is to understand the "what" and "why" of the feature, not necessarily the "how" (which the developer will figure out).
+3.  **Generate PRD:** Based on the prompt and answers, generate the PRD using the structure below. Keep scope explicit and avoid premature design/implementation detail.
+4.  **Save PRD:** Save the generated document as `prd-[feature-name].md` inside the `/tasks` directory.
+
+## Clarifying Questions (Examples)
+
+Adapt questions based on the prompt; these are generally useful:
+- **Problem/Goal:** What problem does this feature solve? What outcome is the primary goal?
+- **Target User:** Who is the primary user? Any secondary users or stakeholders?
+- **Core Functionality:** What key actions must the user be able to perform?
+- **User Stories:** Provide a few user stories (e.g., “As a [user], I want to [action] so that [benefit]”).
+- **Acceptance Criteria:** What must be true for this feature to be considered complete?
+- **Scope/Boundaries:** What is explicitly out of scope (non‑goals)?
+- **Data Requirements:** What data is required (inputs, outputs, persistence)? Any constraints on size, retention, or integrity?
+- **Design/UI:** Any existing patterns, components, or guidelines to follow? Any references or mockups?
+- **Constraints:** Technical, security/privacy, performance, reliability, or cost constraints?
+- **Risks/Unknowns:** What risks or open questions should we track?
+- **(Optional) Delivery Strategy:** Is there tolerance for temporary mocks, feature flags, or phased rollout? Any environments or gating requirements?
+
+## PRD Structure
+
+Use the following structure. Keep it iteration‑agnostic; avoid embedding sprint planning into the PRD.
+
+1.  **Introduction/Overview:** Briefly describe the feature and the problem it solves. State the goal.
+2.  **Goals:** List specific, measurable objectives for the feature (not the plan).
+3.  **User Stories:** Provide user narratives describing the intended usage and value.
+4.  **Functional Requirements:** List the specific functionalities the feature must have. Number each requirement (FR‑1, FR‑2, …). Use clear, concise language. Each FR must map to clear acceptance criteria.
+5.  **Non‑Goals (Out of Scope):** Call out what is explicitly excluded to control scope.
+6.  **Design Considerations (Optional):** Link mockups, describe UI/UX requirements, or relevant components/styles.
+7.  **Technical Considerations (Optional):** Dependencies and integration points; minimal data model sketch; security/PII/compliance; performance/cost/reliability constraints; and — if applicable — a brief **Delivery Strategy** note (e.g., mocks acceptable, feature flags, phased rollout). This subsection is optional and informational, not a plan.
+8.  **Success Metrics:** How will success be measured? Include both qualitative and quantitative metrics (e.g., first‑time completion rate, reduction in support tickets, p95 latency targets, demo pass criteria if applicable).
+9.  **Open Questions:** Outstanding questions and assumptions to validate.
+
+## Target Audience
+
+Assume the primary reader is a **junior developer**. Requirements should be explicit, unambiguous, and free of unnecessary jargon. Implementation details belong in tasks, but provide enough detail for them to understand the feature's purpose and core logic.
+
+## Output
+
+- **Format:** Markdown (`.md`)
+- **Location:** `/tasks/`
+- **Filename:** `prd-[feature-name].md`
+
+## Final Instructions
+
+1. Do not include sprint/iteration plans in the PRD; keep it requirements‑focused.
+2. Keep scope lean; avoid boilerplate or infra mandates not required by the feature’s requirements.
+3. Provide numbered functional requirements with acceptance criteria mapping.
+4. Ask clarifying questions first; refine the PRD after answers.
+5. Do not implement — only generate the PRD.
